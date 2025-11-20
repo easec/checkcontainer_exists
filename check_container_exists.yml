@@ -40,5 +40,5 @@ stages:
          scriptLocation: inlineScript
          inlineScript: 
           az storage container exists --account-name "$(storageAccount)" --sas-token "$(token)" --name "$(containerName)"; $LASTEXITCODE;
-          echo "Exitcode:"" $LASTEXITCODE;
+          echo "Exitcode:" $LASTEXITCODE;
          # echo "VM "$(virtualMachineName)" in Resource Group "$(resourceGroupName)" has been deallocated."
