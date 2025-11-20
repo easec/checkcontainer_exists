@@ -1,0 +1,44 @@
+# This pipeline will delete all resources in Resource Group defined in the variable resourceGroupName.
+
+#
+# The following variables need to be provided to the pipeline:
+# - resourceGroupName            : name for the Resource Group where the vm will be created.
+# - virtualMachineName           : name for the virtual machine.
+# - osDiskName                   : Name for Managed Disk containing the OS.
+# - dataDiskName                 : Name for Managed Disk containing the data.
+#
+# This pipeline also expects an Azure (Resource Manager) service connection in Azure DevOps with the name 'AzureServiceConnection'.
+
+
+trigger: none
+pr: none
+
+pool:
+  name: easec-pool
+  
+variables:
+  resourceGroupName: "snapshot-rg"
+  virtualMachineName: "easec-vm"
+  vmNIC: "easec-vmVMNic"
+  vmNSG: "easec-vmNSG"
+  vmVNET: "easec-vmVNET"
+  osDiskName: "easec-vm_OsDisk_1_man"
+  dataDiskName: "easec-vm_DataDisk_1_man"
+  subscriptionId: "0ac447d7-fbc3-4d3d-84d4-37bb9a71e089"
+  storageAccount: "snapshottestsa"
+  containerName: "snapshot"
+
+stages:
+- stage: Check_container_exist
+  jobs:
+  - job:
+    steps:
+     - task: AzureCLI@2
+       inputs:
+         azureSubscription: 'AzureServiceConnection'
+         scriptType: pscore
+         scriptLocation: inlineScript
+         inlineScript: 
+          az storage blob delete-batch --source "$(containerName)" --account-name "$(storageAccount)" --sas-token "$(token)"
+          az storage container-rm exists --storage-account "$(storageAccount)" --sas-token "$(token)" --name "$(containerName)"; $LASTEXITCODE
+          echo $LASTEXITCODE
