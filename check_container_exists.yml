@@ -40,7 +40,7 @@ stages:
           scriptLocation: 'inlineScript'
           inlineScript: |
             x="rgname2"
-            y=$(az group exists az storage container exists --account-name "$(storageAccount)" --sas-token "$(token)" --name "$(containerName)")
+            y=$(az storage container exists --account-name "$(storageAccount)" --sas-token "$(token)" --name "$(containerName)")
             if [ "$y" = "true" ]; then
               echo "Container exist"
             else
