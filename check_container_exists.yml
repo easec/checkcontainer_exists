@@ -39,4 +39,4 @@ stages:
          scriptType: pscore
          scriptLocation: inlineScript
          inlineScript: 
-          az storage container exists --storage-account "$(storageAccount)" --sas-token "$(token)" --name "$(containerName)"; $LASTEXITCODE
+          az storage container exists --account-name "$(storageAccount)" --sas-token "$(token)" --name "$(containerName)"; $LASTEXITCODE
