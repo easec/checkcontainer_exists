@@ -39,9 +39,9 @@ stages:
           scriptType: 'bash'
           scriptLocation: 'inlineScript'
           inlineScript: |
-            y=$(az storage container exists --account-name "$(storageAccount)" --sas-token "$(token)" --name "$(containerName)" --output json)
+            y=$(az storage container exists --account-name "$(storageAccount)" --sas-token "$(token)" --name "$(containerName)" --query [exists] -o tsv)
             echo $y
-            if [ "$y" = "exists: true" ]; then
+            if [ "$y" = "true" ]; then
               echo "Container exist"
             else
             echo "Container does not exist"
