@@ -41,4 +41,3 @@ stages:
          inlineScript: 
           az storage blob delete-batch --source "$(containerName)" --account-name "$(storageAccount)" --sas-token "$(token)"
           az storage container-rm exists --storage-account "$(storageAccount)" --sas-token "$(token)" --name "$(containerName)"; $LASTEXITCODE
-          echo $LASTEXITCODE
