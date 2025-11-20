@@ -33,12 +33,17 @@ stages:
   jobs:
   - job:
     steps:
-     - task: AzureCLI@2
-       inputs:
-         azureSubscription: 'AzureServiceConnection'
-         scriptType: pscore
-         scriptLocation: inlineScript
-         inlineScript: 
-          az storage container exists --account-name "$(storageAccount)" --sas-token "$(token)" --name "$(containerName)"; $LASTEXITCODE;
-          echo "Exitcode:" $LASTEXITCODE;
-         # echo "VM "$(virtualMachineName)" in Resource Group "$(resourceGroupName)" has been deallocated."
+      - task: AzureCLI@2
+        inputs:
+          azureSubscription: 'AzureServiceConnection'
+          scriptType: 'bash'
+          scriptLocation: 'inlineScript'
+          inlineScript: |
+            x="rgname2"
+            y=$(az group exists --name $x --output json)
+      
+            if [ "$y" = "false" ]; then
+              echo "Hello Rithwik Resource group exist"
+            else
+            echo "Hello Rithwik Resource group does not exist"
+            fi
