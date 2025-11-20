@@ -44,5 +44,6 @@ stages:
             if [ "$y" = "true" ]; then
               echo "Container exist"
             else
-            az storage container create --name "$(containerName)" --account-name "$(storageAccount)" --sas-token "$(token)"
+              echo "Container existar inte"
+              az storage container create --name "$(containerName)" --account-name "$(storageAccount)" --sas-token "$(token)"
             fi
