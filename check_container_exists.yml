@@ -42,7 +42,7 @@ stages:
             x="rgname2"
             y=$(az group exists --name $x --output json)
       
-            if [ "$y" = "false" ]; then
+            if [ "$y" = "true" ]; then
               echo "Hello Rithwik Resource group exist"
             else
             echo "Hello Rithwik Resource group does not exist"
