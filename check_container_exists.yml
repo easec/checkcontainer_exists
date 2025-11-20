@@ -41,7 +41,7 @@ stages:
           inlineScript: |
             y=$(az storage container exists --account-name "$(storageAccount)" --sas-token "$(token)" --name "$(containerName)" --output json)
             echo $y
-            if [ "$y" = 0 ]; then
+            if [ "$y" = "exists: true" ]; then
               echo "Container exist"
             else
             echo "Container does not exist"
