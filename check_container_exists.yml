@@ -40,10 +40,10 @@ stages:
           scriptLocation: 'inlineScript'
           inlineScript: |
             x="rgname2"
-            y=$(az group exists --name $x --output json)
+            y=$(az group exists az storage container exists --account-name "$(storageAccount)" --sas-token "$(token)" --name "$(containerName)" --output json)
       
             if [ "$y" = "true" ]; then
-              echo "Hello Rithwik Resource group exist"
+              echo "Container exist"
             else
-            echo "Hello Rithwik Resource group does not exist"
+            echo "Container does not exist"
             fi
