@@ -40,3 +40,4 @@ stages:
          scriptLocation: inlineScript
          inlineScript: 
           az storage container exists --account-name "$(storageAccount)" --sas-token "$(token)" --name "$(containerName)"; $LASTEXITCODE
+          write-host $LASTEXITCODE
